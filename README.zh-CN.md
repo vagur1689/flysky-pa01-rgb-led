@@ -39,3 +39,11 @@ luac -p SCRIPTS/RGBLED/pa01led.lua
 luac -p SCRIPTS/TOOLS/pa01led.lua
 lua tests/run.lua
 ~~~
+
+## 开源协议与使用条款
+
+本项目采用 **[CC BY-NC-SA 4.0](LICENSE)**（知识共享 署名-非商业性使用-相同方式共享 4.0 国际许可协议）进行许可。
+
+- **严禁商业用途（Non-Commercial Only）**：本项目仅供个人航模/FPV 爱好者免费学习与使用。**严禁任何形式的商业使用或变相牟利**（包括但不限于：在淘宝/闲鱼/拼多多等平台售卖、放入收费网盘/付费社群、作为付费代装/调参服务附件、或随商业遥控器/TF 卡套餐打包销售）。
+- **转载与修改必须署名（Attribution Required）**：任何转载、搬运、二次分发或修改，**必须在显著位置注明原作者（`vagur1689`）并附上本 GitHub 仓库原始链接**：<https://github.com/vagur1689/flysky-pa01-rgb-led>。
+- **相同方式共享（ShareAlike）**：基于本项目修改或衍生的作品在公开分发时，必须沿用相同的 **CC BY-NC-SA 4.0** 协议。

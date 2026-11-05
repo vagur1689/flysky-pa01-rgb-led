@@ -1,5 +1,8 @@
 -- FlySky PA01 专属灯光控制引擎 (后台 RGBLED 脚本)
 -- 配合 /SCRIPTS/TOOLS/pa01led.lua 可视化调色盘工具使用
+-- Author: vagur1689 (https://github.com/vagur1689/flysky-pa01-rgb-led)
+-- License: CC BY-NC-SA 4.0 | 严禁商用，转载或修改必须注明作者(vagur1689)与原仓库出处
+-- Non-commercial use only. Attribution to vagur1689 and source URL is required.
 
 local CFG_FILE = "/SCRIPTS/RGBLED/pa01led.cfg"
 

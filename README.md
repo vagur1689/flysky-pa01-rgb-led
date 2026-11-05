@@ -39,3 +39,11 @@ luac -p SCRIPTS/RGBLED/pa01led.lua
 luac -p SCRIPTS/TOOLS/pa01led.lua
 lua tests/run.lua
 ~~~
+
+## License & Terms of Use
+
+Licensed under **[CC BY-NC-SA 4.0](LICENSE)** (Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International).
+
+- **Non-Commercial Only**: Strictly for personal, hobbyist, and non-commercial use. Selling these scripts standalone or in bundles (on marketplaces, paid cloud drives, paid tuning/installation services, or pre-installed on commercial SD cards/radios) is **strictly prohibited**.
+- **Attribution Required**: Any reposting, redistribution, or modification **must** visibly credit the original author (**`vagur1689`**) and link back to the original repository: <https://github.com/vagur1689/flysky-pa01-rgb-led>.
+- **ShareAlike**: Derivative works must be distributed under the same **CC BY-NC-SA 4.0** license.

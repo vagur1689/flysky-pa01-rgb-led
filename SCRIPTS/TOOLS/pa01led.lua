@@ -1,5 +1,8 @@
 -- FlySky PA01 可视化 RGB 色盘与灯效设置工具 (前台 TOOLS 脚本)
 -- 适配 PA01 320x240 彩屏 + 滚轮交互，支持实时硬件灯光预览与配置保存
+-- Author: vagur1689 (https://github.com/vagur1689/flysky-pa01-rgb-led)
+-- License: CC BY-NC-SA 4.0 | 严禁商用，转载或修改必须注明作者(vagur1689)与原仓库出处
+-- Non-commercial use only. Attribution to vagur1689 and source URL is required.
 
 local CFG_FILE = "/SCRIPTS/RGBLED/pa01led.cfg"
 
