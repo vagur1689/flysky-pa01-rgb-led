@@ -202,12 +202,12 @@ local function run()
     setRGBLedColor(255, pr, pg, pb)
   end
 
-  -- 2. 控制机身左右两侧灯条 (Lua 0,1 与 2,3)
-  local leftIdx0, leftIdx1 = 0, 1
-  local rightIdx0, rightIdx1 = 2, 3
+  -- 2. 控制机身左右两侧灯条 (PA01 硬件默认: 2,3 为左灯条，0,1 为右灯条)
+  local leftIdx0, leftIdx1 = 2, 3
+  local rightIdx0, rightIdx1 = 0, 1
   if activeCfg.swapLR == 1 then
-    leftIdx0, leftIdx1 = 2, 3
-    rightIdx0, rightIdx1 = 0, 1
+    leftIdx0, leftIdx1 = 0, 1
+    rightIdx0, rightIdx1 = 2, 3
   end
 
   if not armed then

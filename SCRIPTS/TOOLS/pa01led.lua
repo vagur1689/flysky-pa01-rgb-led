@@ -79,14 +79,14 @@ local saSourceId = nil
 local ITEMS = {
   { key = "previewMode", label = "预览状态", kind = "enum",   min = 0, max = 2,  names = PREVIEW_MODES, zeroBased = true },
   { key = "pwrColor",    label = "开机键色", kind = "color",  min = 1, max = 25, previewState = 0 },
-  { key = "pwrBrt",      label = "开机强度", kind = "slider", min = 0, max = 100, step = 5, previewState = 0 },
+  { key = "pwrBrt",      label = "开机亮度", prefix = "开机", kind = "slider", min = 0, max = 100, step = 5, previewState = 0 },
   { key = "pwrMode",     label = "开机模式", kind = "enum",   min = 1, max = 4,  names = PWR_MODES, previewState = 0 },
   { key = "lockColor",   label = "锁定颜色", kind = "color",  min = 1, max = 25, previewState = 1 },
-  { key = "lockBrt",     label = "锁定强度", kind = "slider", min = 0, max = 100, step = 5, previewState = 1 },
+  { key = "lockBrt",     label = "锁定亮度", prefix = "锁定", kind = "slider", min = 0, max = 100, step = 5, previewState = 1 },
   { key = "armLeft",     label = "解锁左色", kind = "color",  min = 1, max = 25, previewState = 2 },
   { key = "armRight",    label = "解锁右色", kind = "color",  min = 1, max = 25, previewState = 2 },
   { key = "armMode",     label = "解锁模式", kind = "enum",   min = 1, max = 5,  names = ARM_MODES, previewState = 2 },
-  { key = "armBrt",      label = "解锁强度", kind = "slider", min = 0, max = 100, step = 5, previewState = 2 },
+  { key = "armBrt",      label = "解锁亮度", prefix = "解锁", kind = "slider", min = 0, max = 100, step = 5, previewState = 2 },
   { key = "armSpd",      label = "解锁速度", kind = "slider", min = 1, max = 10,  step = 1, previewState = 2 },
   { key = "swapLR",      label = "左右方向", kind = "enum",   min = 0, max = 1,  names = SWAP_MODES, zeroBased = true },
   { key = "save",        label = "[保存设置]", kind = "action" },
@@ -239,11 +239,11 @@ local function updateLiveLeds()
   local pr, pg, pb = scaleColor(pCol, cfg.pwrBrt, pWave)
 
   local l0r, l0g, l0b, r0r, r0g, r0b
-  local leftIdx0, leftIdx1 = 0, 1
-  local rightIdx0, rightIdx1 = 2, 3
+  local leftIdx0, leftIdx1 = 2, 3
+  local rightIdx0, rightIdx1 = 0, 1
   if cfg.swapLR == 1 then
-    leftIdx0, leftIdx1 = 2, 3
-    rightIdx0, rightIdx1 = 0, 1
+    leftIdx0, leftIdx1 = 0, 1
+    rightIdx0, rightIdx1 = 2, 3
   end
 
   if not armed then
@@ -392,6 +392,34 @@ local function drawRadioPreview(armed, lr, lg, lb, pr, pg, pb, rr, rg, rb)
   lcd.drawText(293, 188, "右", SMLSIZE + rgbFlag(0, 0, 0))
 end
 
+-- 绘制 PA01 字库未内置的 "亮" 字 (11x11 像素点阵，与 SMLSIZE 字号对齐)
+local LIANG_SPANS = {
+  { 4, 0, 3, 1 },
+  { 0, 1, 11, 1 },
+  { 2, 2, 7, 1 },
+  { 2, 3, 1, 1 }, { 8, 3, 1, 1 },
+  { 2, 4, 7, 1 },
+  { 0, 5, 11, 1 },
+  { 0, 6, 1, 2 }, { 10, 6, 1, 2 },
+  { 3, 7, 5, 1 },
+  { 3, 8, 1, 2 }, { 7, 8, 1, 2 },
+  { 1, 10, 2, 1 }, { 7, 10, 4, 1 },
+}
+
+local function drawBrightnessLabel(x, y, prefix, flags, colFlag)
+  lcd.drawText(x, y, prefix, flags)
+  local w2 = (type(lcd.sizeText) == "function" and lcd.sizeText(prefix, SMLSIZE)) or 24
+  if type(w2) ~= "number" or w2 < 16 then w2 = 24 end
+  local charW = math.floor(w2 / 2 + 0.5)
+  local gx = x + w2 + 1
+  local gy = y + 3
+  for i = 1, #LIANG_SPANS do
+    local s = LIANG_SPANS[i]
+    lcd.drawFilledRectangle(gx + s[1], gy + s[2], s[3], s[4], colFlag)
+  end
+  lcd.drawText(x + w2 + charW, y, "度", flags)
+end
+
 local function drawItemRow(rowY, item, isFocused, isEditing)
   local bgCol = isFocused and (isEditing and rgbFlag(70, 55, 15) or rgbFlag(38, 52, 74)) or rgbFlag(22, 26, 34)
   lcd.drawFilledRectangle(4, rowY, 184, 24, bgCol)
@@ -400,7 +428,11 @@ local function drawItemRow(rowY, item, isFocused, isEditing)
   end
 
   local txtCol = rgbFlag(235, 240, 245)
-  lcd.drawText(8, rowY + 3, item.label, SMLSIZE + txtCol)
+  if item.prefix then
+    drawBrightnessLabel(8, rowY + 3, item.prefix, SMLSIZE + txtCol, txtCol)
+  else
+    lcd.drawText(8, rowY + 3, item.label, SMLSIZE + txtCol)
+  end
 
   if item.kind == "color" then
     local cIdx = cfg[item.key]

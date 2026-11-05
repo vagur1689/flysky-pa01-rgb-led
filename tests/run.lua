@@ -165,8 +165,8 @@ test("all 5 armed modes and swapLR produce valid RGB frames across time steps", 
       end
       assert(state.frames == 8 and state.handles == 0)
       if mode == 1 then
-        local leftId = (swap == 0) and 0 or 2
-        local rightId = (swap == 0) and 2 or 0
+        local leftId = (swap == 0) and 2 or 0
+        local rightId = (swap == 0) and 0 or 2
         assert(state.leds[leftId][1] > 200 and state.leds[leftId][3] == 0, "left should be red")
         assert(state.leds[rightId][3] > 200 and state.leds[rightId][1] == 0, "right should be blue")
       end
